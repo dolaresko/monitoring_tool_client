@@ -1,0 +1,6 @@
+project_id: ''
+secure_token: ''
+webhook: true
+report_interval: 0
+skip_updates: {  }
+langcode: en

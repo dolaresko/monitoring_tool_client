@@ -1,0 +1,5 @@
+system.monitoring_tool_client_settings_form:
+  title: 'Monitoring tool Client'
+  parent: system.admin_config_services
+  description: 'Settings form'
+  route_name: monitoring_tool_client.settings_form

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Common module file.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function monitoring_tool_client_cron() {
+  $request_time = \Drupal::time()->getRequestTime();
+  /** @var \Drupal\Core\Config\ImmutableConfig $config */
+  $config = \Drupal::configFactory()->get('monitoring_tool_client.settings');
+  /** @var \Drupal\Core\State\StateInterface $state_api */
+  $state_api = \Drupal::state();
+  $last_execution = $state_api->get('monitoring_tool_client.last_execution', 0);
+
+  if (
+    $config->get('webhook') === FALSE &&
+    !empty($config->get('project_id')) &&
+    !empty($config->get('secure_token')) &&
+    $request_time > $last_execution + $config->get('report_interval')
+  ) {
+    /** @var \Drupal\monitoring_tool_client\Service\ClientApiServiceInterface $client_api */
+    $client_api = \Drupal::service('monitoring_tool_client.client_api');
+    $client_api->sendModules();
+    $state_api->set('monitoring_tool_client.last_execution', $request_time);
+  }
+}

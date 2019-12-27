@@ -1,0 +1,21 @@
+monitoring_tool_client.settings:
+  type: config_object
+  label: 'Monitoring tool Client settings'
+  mapping:
+    project_id:
+      type: string
+      label: 'Project ID'
+    secure_token:
+      type: string
+      label: 'Secure token'
+    webhook:
+      type: boolean
+      label: 'Use WebHook'
+    report_interval:
+      type: integer
+      label: 'How often need to send the report'
+    skip_updates:
+      type: sequence
+      label: 'Skip of checking updates'
+      sequence:
+        type: string
